@@ -29,8 +29,8 @@
         }
     }
     public function themtaikhoan($username,$password,$chucvu){
-        $sql = "insert into taikhoan(username,password,phanquyen) values ('$username','$password','$chucvu')";
-        $sql1 = "insert into khachhang(Hoten,SDT,Gioitinh) values ('','','')";
+        $sql = "insert into taikhoan(username,password,Loaiquyen) values ('$username','$password','$chucvu')";
+        $sql1 = "insert into khachhang(MaKH,Hoten,Sodienthoai,Gioitinh) values ('$username','','','')";
         $link = $this->connect();
          $result = $link->query($sql);
          $result = $link->query($sql1);
@@ -39,23 +39,22 @@
     }
 }
     public function xoataikhoan($id,$quyen){
-        $sql = "delete from taikhoan where IDAccount = '$id'";
+        $sql = "delete from taikhoan where username = '$id'";
         $link = $this->connect();
-        if($quyen == 2){
+        if($quyen == 'khách hàng'){
             $result = $link->query($sql);
             if($result){
                 echo'<script>alert("Xóa tài khoản thành công");
                 </script>';
             }
-
         }else{
             echo'<script>alert("Không đủ quyền hạn xóa tài khoản này, vui lòng liên hệ người chủ trì.");
             </script>';
         }
     }
-    public function suataikhoan($id,$username,$password,$chucvu,$name,$sdt,$date,$gioitinh){
-        $sql = "update taikhoan set username = '$username' , password = '$password',phanquyen = '$chucvu' where IDAccount = '$id'";
-        $sql1 = "update nguoidung set Hoten = '$name', SDT = '$sdt',Gioitinh = '$gioitinh', Ngaysinh = '$date' where IDUser = '$id'";
+    public function suataikhoan($username,$password,$chucvu,$name,$sdt,$date,$gioitinh,$email){
+        $sql = "update taikhoan set username = '$username' , password = '$password',Loaiquyen = '$chucvu' where username = '$username'";
+        $sql1 = "update khachhang set Hoten = '$name', Sodienthoai = '$sdt',Gioitinh = '$gioitinh', Ngaysinh = '$date',Email ='$email' where MaKH = '$username'";
         $link = $this->connect();
         $result = $link->query($sql);
         $result = $link->query($sql1);

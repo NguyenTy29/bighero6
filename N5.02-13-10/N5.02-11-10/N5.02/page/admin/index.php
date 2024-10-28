@@ -26,7 +26,7 @@
         if(isset($_REQUEST['btnSearch'])){
             $txtsearch = $_REQUEST['txtSearch'];
       
-            $sql = "select * from taikhoan t inner join khachhang k on t.username = k.MaKH where t.username = '$txtsearch'";
+            $sql = "select * from taikhoan t inner join khachhang k on t.username = k.MaKH where t.username like '%$txtsearch%'";
         }else{
             $sql = "select * from taikhoan t inner join khachhang k on t.username = k.MaKH" ;
         }

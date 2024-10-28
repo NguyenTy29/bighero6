@@ -88,15 +88,7 @@
                     <th> <label for="">Giới tính:</label>
                     <th>
                     <select name="gioitinh" id="">
-                    <?php
-                        $sql ="select * from gioitinh";
-                        $result = $obj->laydulieu($sql);
-                        for($i=0;$i<count($result);$i++){
-                            echo'<option value="'.$result[$i]["idGender"].'">
-                            '.$result[$i]["nameGender"].'
-                        </option>';
-                        }
-                    ?>
+                    
                 </select>
                     </th>
                 </tr> -->
@@ -120,15 +112,10 @@
                     <th> <label for="">Chức vụ:</label>
                     <th>
                     <select name="chucvu" id="">
-                    <?php
-                        $sql ="select * from chucvu";
-                        $result = $obj->laydulieu($sql);
-                        for($i=0;$i<count($result);$i++){
-                            echo'<option value="'.$result[$i]["maChuc"].'">
-                            '.$result[$i]["tenchucvu"].'
-                        </option>';
-                        }
-                    ?>
+                    
+                     <option value="admin">Admin</option>
+                     <option value="khách hàng">Khách hàng</option>
+                
                 </select>
                     </th>
                       

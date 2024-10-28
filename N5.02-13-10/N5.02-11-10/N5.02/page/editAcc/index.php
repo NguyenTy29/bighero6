@@ -81,7 +81,7 @@
                     <?php
                      if(isset($_REQUEST['id'])){
                         $id = $_REQUEST['id'];
-                        $sql = "SELECT * FROM taikhoan t inner join chucvu c on t.phanquyen = c.maChuc inner join nguoidung n on n.IDUser = t.IDAccount inner join gioitinh g on g.idGender = n.Gioitinh where n.IDUser = '$id'";
+                        $sql = "SELECT * FROM khachhang k inner join taikhoan t on k.MaKH = t.username";
                         $result = $obj->laydulieu($sql);
                     echo'<th><input class="acc" type="text" name="txtName" value="'.$result[0]['Hoten'].'" size="30" placeholder="Họ Tên" /></th>';
                      }
@@ -90,7 +90,7 @@
                 <tr>
                     <th> <label for="">Số điện thoại:</label></th>
                     <?php
-                    echo'<th><input class="acc" type="text" name="txtSDT" value="'.$result[0]['SDT'].'" size="30" placeholder="SDT" /></th>';
+                    echo'<th><input class="acc" type="text" name="txtSDT" value="'.$result[0]['Sodienthoai'].'" size="30" placeholder="SDT" /></th>';
                     ?>
         
                 </tr> 
@@ -98,15 +98,8 @@
                     <th> <label for="">Giới tính:</label>
                     <th>
                     <select name="gioitinh" id="">
-                    <?php
-                        $sql ="select * from gioitinh";
-                        $result = $obj->laydulieu($sql);
-                        for($i=0;$i<count($result);$i++){
-                            echo'<option value="'.$result[$i]["idGender"].'">
-                            '.$result[$i]["nameGender"].'
-                        </option>';
-                        }
-                    ?>
+                     <option value="Nam">Nam</option>
+                     <option value="Nữ">Nữ</option>
                 </select>
                     </th>
                 </tr> 
@@ -120,7 +113,7 @@
                 <tr>
                     <th><label for="">Tên đăng nhập: </label></th>
                     <?php
-                     $sql = "SELECT * FROM taikhoan t inner join chucvu c on t.phanquyen = c.maChuc inner join khachhang n on n.IDUser = t.IDAccount inner join gioitinh g on g.idGender = n.Gioitinh where t.IDAccount = '$id'";
+                     $sql = "SELECT * FROM khachhang k inner join taikhoan t on k.MaKH = t.username";
                      $result = $obj->laydulieu($sql);
                         echo'<th><input class="acc" type="text" name="txtTenDN" size="30" value="'.$result[0]['username'].'" placeholder="username" /></th>';   
                     ?>
@@ -138,18 +131,17 @@
                     ?>
                 </tr>
                 <tr>
+                    <th> <label for="">Email:</label></th>
+                    <?php
+                    echo'<th><input class="acc" type="text" name="txtEmail" value="'.$result[0]['Email'].'" size="30" placeholder="Email" /></th>';
+                    ?>
+                </tr>
+                <tr>
                     <th> <label for="">Chức vụ:</label>
                     <th>
                     <select name="chucvu" id="">
-                    <?php
-                        $sql ="select * from chucvu";
-                        $result = $obj->laydulieu($sql);
-                        for($i=0;$i<count($result);$i++){
-                            echo'<option value="'.$result[$i]["maChuc"].'">
-                            '.$result[$i]["tenchucvu"].'
-                        </option>';
-                        }
-                    ?>
+                     <option value="admin">Admin</option>
+                     <option value="khách hàng">Khách hàng</option>
                 </select>
                     </th>
                       
@@ -178,9 +170,10 @@ if(isset($_REQUEST['btnEdit'])){
    $password = $_REQUEST['txtPass'];
    $rePass = $_REQUEST['txtRePass'];
    $chucvu = $_REQUEST['chucvu'];
+   $email = $_REQUEST['txtEmail'];
 //    if($name=""||$sdt==""|| $date=""||$password=""||$username=""||$Repass=""){
    if($password == $rePass){
-       $result = $obj->suataikhoan($id,$username,$password,$chucvu,$name,$sdt,$date,$gioitinh);
+       $result = $obj->suataikhoan($username,$password,$chucvu,$name,$sdt,$date,$gioitinh,$email);
        echo'<script>alert("Sửa tài khoản thành công");
             </script>';
    
