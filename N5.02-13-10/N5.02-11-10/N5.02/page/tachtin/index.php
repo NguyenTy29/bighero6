@@ -111,6 +111,14 @@ function read() {
         downloadFile.style.pointerEvents = "auto"; // Enable the link
         downloadFile.style.color = ""; // Reset color
         fileArea.className = "";
+        <?php
+            $iduser = $_SESSION['dangnhap'];
+            $layuser = "select * from taikhoan where username = '$iduser'";
+            $user = $obj->laydulieu($layuser);
+            $time = time();
+            $sqlhd = "insert into lichsuhoatdong (loaihoatdong,username) values ('Người dùng \'".$user[0]['username']. "\' đã thực hiện tách tin ','$iduser')"; 
+            $value = $obj->lichsuhoatdong($sqlhd);
+            ?>
     } else {
         // Clear the download link if no valid file is found
         downloadFile.href = "";

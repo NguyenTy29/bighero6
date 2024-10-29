@@ -18,7 +18,7 @@
             <th>SDT</th>
             <th>Giới tính</th>
             <th>Ngày sinh</th>
-            <th>IDAccount</th>
+            <th>Email</th>
             <th>Mô tả</th>
             <th>Action</th>
         </tr>

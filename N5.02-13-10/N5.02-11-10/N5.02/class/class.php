@@ -61,12 +61,12 @@
 
 }
 public function changepass($id,$username,$password){
-    $sql = "update taikhoan set  password = '$password' where IDAccount = '$id'";
+    $sql = "update taikhoan set  password = '$password' where username = '$id'";
     $link = $this->connect();
     $result = $link->query($sql);
 
 }
-public function hoatdong($sql){
+public function lichsuhoatdong($sql){
     $link = $this->connect();
     $result = $link->query($sql);
 }

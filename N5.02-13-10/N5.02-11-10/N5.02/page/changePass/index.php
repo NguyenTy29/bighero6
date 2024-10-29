@@ -80,7 +80,7 @@
                     <?php
                     if(isset($_REQUEST['id'])){
                         $id = $_REQUEST['id'];
-                        $sql = "SELECT * FROM taikhoan where IDAccount = '$id'";
+                        $sql = "SELECT * FROM taikhoan where username = '$id'";
                         $result = $obj->laydulieu($sql);
                         echo'<th><input disabled class="acc" type="text" name="txtTenDN" size="30" value="'.$result[0]['username'].'" placeholder="username " /></th>';
                     }

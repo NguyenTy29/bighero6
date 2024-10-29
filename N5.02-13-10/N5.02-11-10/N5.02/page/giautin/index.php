@@ -52,13 +52,13 @@
     <div class="clear"></div>
 </div>
 <?php
-// if(isset($_REQUEST['btnHide'])){
-//     $iduser = $_SESSION['dangnhap'];
-//     $layuser = "select * from taikhoan where IDAccount = '$iduser'";
-//     $user = $obj->laydulieu($layuser);
-//     $sqlhd = "insert into lichsuhoatdong (hoatdong,IDAccount) values ('Người dùng \'".$user[0]['username']. "\' đã thực hiện giấu tin ','$iduser')"; 
-//     $value = $obj->hoatdong($sqlhd,$iduser);
-// }
+if(isset($_REQUEST['btnHide'])){
+    // $iduser = $_SESSION['dangnhap'];
+    // $layuser = "select * from taikhoan where username = '$iduser'";
+    // $user = $obj->laydulieu($layuser);
+    // $sqlhd = "insert into lichsuhoatdong (loaihoatdong,username) values ('Người dùng \'".$user[0]['username']. "\' đã thực hiện giấu tin ','$iduser')"; 
+    // $value = $obj->lichsuhoatdong($sqlhd);
+}
 ?>
 
 
@@ -160,6 +160,15 @@ function hide() {
             message.innerHTML = "";
             message.parentNode.className = "invisible";
             download.href = cover.src.replace("image/png", "image/octet-stream");
+
+            <?php
+            $iduser = $_SESSION['dangnhap'];
+            $layuser = "select * from taikhoan where username = '$iduser'";
+            $user = $obj->laydulieu($layuser);
+            $time = time();
+            $sqlhd = "insert into lichsuhoatdong (loaihoatdong,username) values ('Người dùng \'".$user[0]['username']. "\' đã thực hiện giấu tin ','$iduser')"; 
+            $value = $obj->lichsuhoatdong($sqlhd);
+            ?>
             
         }
     }

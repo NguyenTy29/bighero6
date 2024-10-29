@@ -143,6 +143,14 @@ function hide() {
             message.innerHTML = "";
             message.parentNode.className = "invisible";
             download.href = cover.src.replace("image/png", "image/octet-stream");
+            <?php
+            $iduser = $_SESSION['dangnhap'];
+            $layuser = "select * from taikhoan where username = '$iduser'";
+            $user = $obj->laydulieu($layuser);
+            $time = time();
+            $sqlhd = "insert into lichsuhoatdong (loaihoatdong,username) values ('Người dùng \'".$user[0]['username']. "\' đã thực hiện giấu tin ','$iduser')"; 
+            $value = $obj->lichsuhoatdong($sqlhd);
+            ?>
         }
     }
 }

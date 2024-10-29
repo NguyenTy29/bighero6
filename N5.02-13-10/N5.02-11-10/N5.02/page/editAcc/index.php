@@ -81,9 +81,9 @@
                     <?php
                      if(isset($_REQUEST['id'])){
                         $id = $_REQUEST['id'];
-                        $sql = "SELECT * FROM khachhang k inner join taikhoan t on k.MaKH = t.username";
+                        $sql = "SELECT * FROM khachhang k inner join taikhoan t on k.MaKH = t.username where k.MaKH ='$id'";
                         $result = $obj->laydulieu($sql);
-                    echo'<th><input class="acc" type="text" name="txtName" value="'.$result[0]['Hoten'].'" size="30" placeholder="Họ Tên" /></th>';
+                    echo'<th><input class="acc" disabled  type="text" name="txtName" value="'.$result[0]['Hoten'].'" size="30" placeholder="Họ Tên" /></th>';
                      }
                     ?>
                 </tr>
@@ -113,8 +113,7 @@
                 <tr>
                     <th><label for="">Tên đăng nhập: </label></th>
                     <?php
-                     $sql = "SELECT * FROM khachhang k inner join taikhoan t on k.MaKH = t.username";
-                     $result = $obj->laydulieu($sql);
+              
                         echo'<th><input class="acc" type="text" name="txtTenDN" size="30" value="'.$result[0]['username'].'" placeholder="username" /></th>';   
                     ?>
                 </tr>

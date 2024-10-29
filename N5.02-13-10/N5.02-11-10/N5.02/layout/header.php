@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="layout.css?v=3">
+    <link rel="stylesheet" href="layout.css?v=2">
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
@@ -23,7 +23,8 @@
                     if($num == 'admin'){
                         echo'<li><a href="index.php?page=admin">Quản lí</a></li>';
                     }else{
-                        echo'<li><a href="index.php?page=changePass&id='.$result[0]['IDAccount'].'">Đổi mật khẩu</a></li>';
+                        echo'<li><a href="index.php?page=changePass&id='.$result[0]['username'].'">Đổi mật khẩu</a></li>';
+                        echo'<li><a href="index.php?page=history&id='.$result[0]['username'].'">Lịch sử hoạt động</a></li>';
                     }
                 }
                 ?>
