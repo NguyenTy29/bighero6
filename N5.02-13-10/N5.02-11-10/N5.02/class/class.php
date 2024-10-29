@@ -53,7 +53,7 @@
         }
     }
     public function suataikhoan($username,$password,$chucvu,$name,$sdt,$date,$gioitinh,$email){
-        $sql = "update taikhoan set username = '$username' , password = '$password',Loaiquyen = '$chucvu' where username = '$username'";
+        $sql = "update taikhoan set  password = '$password',Loaiquyen = '$chucvu' where username = '$username'";
         $sql1 = "update khachhang set Hoten = '$name', Sodienthoai = '$sdt',Gioitinh = '$gioitinh', Ngaysinh = '$date',Email ='$email' where MaKH = '$username'";
         $link = $this->connect();
         $result = $link->query($sql);

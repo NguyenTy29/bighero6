@@ -3,6 +3,9 @@
     margin: 0 auto;
 
 }
+
+
+
 body {
     font-family: 'Roboto', sans-serif;
     margin: 0;
@@ -36,6 +39,8 @@ header ul {
 
 header ul li {
     margin: 0 15px;
+    /* line-height: 70px; */
+    width: 150px;
 }
 
 header ul li a {
@@ -44,10 +49,15 @@ header ul li a {
     font-weight: bold;
     transition: color 0.3s;
     line-height: 100px;
+    display: block;
 }
 
 header ul li a:hover {
     color: #ffcc00;
+    transform: translateX(10px);
+    box-shadow: 4px 0 20px rgba(0, 0, 0, 0.4);
+    transform: scale(1.05);
+    /* background-color: #f0e8cb; */
 }
 
 .content {
@@ -70,6 +80,7 @@ header ul li a:hover {
     box-shadow: 2px 0 15px rgba(0, 0, 0, 0.3);
     transition: transform 0.3s ease-in-out, box-shadow 0.3s;
 }
+
 
 .sidebar:hover {
     box-shadow: 4px 0 20px rgba(0, 0, 0, 0.4);

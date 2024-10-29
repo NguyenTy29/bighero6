@@ -17,7 +17,7 @@
         <label style="width: 200px; border: 2px solid #ccc; height: 50px; background-color: violet; padding: 5px; border-radius: 10px; line-height: 50px;" for="file">Nhập ảnh</label>
         <input hidden id="file" type="file"/><br/>
         <div class="btns">
-            <span id="read" class="btn">Tách văn bản</span>
+            <span id="read" class="btn">Tách dữ liệu</span>
         </div>
         <div id="error" style="color: red;"></div>
     </div>

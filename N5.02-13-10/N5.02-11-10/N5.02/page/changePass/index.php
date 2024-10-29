@@ -123,7 +123,8 @@ if(isset($_REQUEST['btnEdit'])){
             </script>';
    
    }else{
-    echo'Nhập lại mật khẩu không chính xác';
+    echo'<script>alert("Nhập lại mật khẩu không chính xác.");
+    </script>';
    }
 
 }
