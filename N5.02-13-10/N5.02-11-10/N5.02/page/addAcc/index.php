@@ -1,6 +1,7 @@
 
 <!DOCTYPE HTML>
 <link rel="stylesheet" href="style.css">
+<title>Tạo tài khoản</title>
 <html>
     <style type="text/css">
         *{
@@ -138,6 +139,7 @@ if(isset($_REQUEST['btnAdd'])){
    $password = $_REQUEST['txtPass'];
    $rePass = $_REQUEST['txtRePass'];
    $chucvu = $_REQUEST['chucvu'];
+   $maqtv = $_SESSION['dangnhap'];
    if($password == $rePass){
         $sql1 = "select * from taikhoan where username = '$username' ";
         $result = $obj->laydulieu($sql1);
@@ -145,7 +147,8 @@ if(isset($_REQUEST['btnAdd'])){
             echo"Tên đăng nhập đã tồn tại.";
         }else{
             $result = $obj->themtaikhoan($username,$password,$chucvu);
-
+            $sql2 = "insert into quantrivien_khachhang(MaQTV,MaKH,loaihoatdong) values('$maqtv','$username','Tạo tài khoản')";
+            $result1 = $obj->lichsuhoatdong($sql2);
         }
    }else{
     echo'Nhập lại mật khẩu không chính xác';

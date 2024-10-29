@@ -1,3 +1,4 @@
+<title>Lịch sử hoạt động</title>
 <h2>Lịch sử hoạt động</h2>
 <table id="userTable">
     <tr>

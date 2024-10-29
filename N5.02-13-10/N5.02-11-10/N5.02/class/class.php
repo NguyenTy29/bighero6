@@ -70,5 +70,6 @@ public function lichsuhoatdong($sql){
     $link = $this->connect();
     $result = $link->query($sql);
 }
+
 }
 ?>

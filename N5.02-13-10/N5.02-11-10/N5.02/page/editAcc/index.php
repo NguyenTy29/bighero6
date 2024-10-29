@@ -170,9 +170,12 @@ if(isset($_REQUEST['btnEdit'])){
    $rePass = $_REQUEST['txtRePass'];
    $chucvu = $_REQUEST['chucvu'];
    $email = $_REQUEST['txtEmail'];
+   $maqtv = $_SESSION['dangnhap'];
 //    if($name=""||$sdt==""|| $date=""||$password=""||$username=""||$Repass=""){
    if($password == $rePass){
        $result = $obj->suataikhoan($username,$password,$chucvu,$name,$sdt,$date,$gioitinh,$email);
+       $sql2 = "insert into quantrivien_khachhang(MaQTV,MaKH,loaihoatdong) values('$maqtv','$username','Sửa thông tin')";
+            $result1 = $obj->lichsuhoatdong($sql2);
        echo'<script>alert("Sửa tài khoản thành công");
             </script>';
    

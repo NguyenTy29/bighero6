@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
-  <title>Document</title>
+  <title>Giấu tin văn bản</title>
 </head>
 <body>
 
@@ -124,6 +124,7 @@ function hide() {
     }
 
     if (!textarea.value && fileInput.files.length === 0) {
+        alert("Bạn chưa chọn file / nhập thông điệp.");
         errorElement.innerHTML = "Bạn chưa chọn file / nhập thông điệp.";
         return;
     }

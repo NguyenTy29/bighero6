@@ -1,7 +1,8 @@
-
+<title>Quản lí</title>
     <div class="addacc">
         <a class="newacc" href="index.php?page=addAcc">Thêm tài khoản</a>
-        <a class="newacc" href="index.php?page=history">Lịch sử hoạt động</a>
+        <a class="newacc" href="index.php?page=history">Lịch sử hoạt động của Khách hàng</a>
+        <a class="newacc" href="index.php?page=lichsuhdqtv">Lịch sử hoạt động của Quản trị viên</a>
     </div>
     <div class="search-bar">
         <form action="" method="post">
@@ -42,7 +43,7 @@
                 <td>".$result[$i]['Ngaysinh']."</td>
                 <td>".$result[$i]['Email']."</td>
                 <td></td>
-                <td> <a class='action' href='index.php?page=editAcc&id=".$result[$i]['username']."'>Sửa</a>|<a class='action' href='index.php?page=admin&id=".$result[$i]['username']."&quyen=".$result[$i]['Loaiquyen']."'>Xóa</a></td>";
+                <td> <a class='action' href='index.php?page=editAcc&id=".$result[$i]['username']."'>Sửa</a>|<a class='action' href='index.php?page=admin&id=".$result[$i]['username']."&quyen=".$result[$i]['Loaiquyen']."&'>Xóa</a></td>";
                 echo"</tr>";
             }
             if(isset($_REQUEST['id'])){

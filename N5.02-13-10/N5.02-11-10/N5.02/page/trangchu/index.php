@@ -1,4 +1,4 @@
-
+<title>Trang chủ</title>
             <div class="container">
             <h1>STEGANOGRAPHY</h1>
                 <div class="feature">

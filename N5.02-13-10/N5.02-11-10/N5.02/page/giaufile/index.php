@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
-  <title>Document</title>
+  <title>Giấu tin file</title>
 </head>
 <body>
 
@@ -108,6 +108,7 @@ function hide() {
 
     // Check if either the textarea contains a message or a file is selected
     if (!textarea.value && fileInput.files.length === 0) {
+        alert("Xin vui lòng nhập văn bản hoặc chọn một tệp để nhúng.");
         errorElement.innerHTML = "Xin vui lòng nhập văn bản hoặc chọn một tệp để nhúng.";
         return;
     }
