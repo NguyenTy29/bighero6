@@ -176,6 +176,9 @@ if(isset($_REQUEST['btnEdit'])){
 //    if($name=""||$sdt==""|| $date=""||$password=""||$username=""||$Repass=""){
    if($password == $rePass){
        $result = $obj->suataikhoan($username,$password,$chucvu,$name,$sdt,$date,$gioitinh,$email);
+        echo'<script>alert("Sửa người dùng thành công.");
+            </script>';
+       
        
     //    $sql2 = "insert into quantrivien_khachhang(MaQTV,MaKH,loaihoatdong) values('$maqtv','$username','Sửa thông tin')";
     //         $result1 = $obj->lichsuhoatdong($sql2);

@@ -77,10 +77,10 @@
         return null;
     }
     
-    public function themtaikhoan($username,$password,$chucvu,$name,$gioitinh,$sdt,$email){
+    public function themtaikhoan($username,$password,$chucvu,$date,$name,$gioitinh,$sdt,$email){
         $quyen = $chucvu;
         if($quyen=='KhachHang'){
-            $sql1 = "insert into khachhang(MaKH,Hoten,Sodienthoai,Gioitinh,Email) values ('$username','$name','$sdt','$gioitinh','$email')";
+            $sql1 = "insert into khachhang(MaKH,Hoten,Sodienthoai,Ngaysinh,Gioitinh,Email) values ('$username','$name','$sdt','$date','$gioitinh','$email')";
             $sql = "insert into taikhoan_khachhang(UsernameKH,Password,LoaiQuyen) values ('$username','$password','$quyen')";
         }else{
             $sql1 = "insert into quantrivien(MaQTV,Hoten,Sodienthoai,Gioitinh,Email) values ('$username','$name','$sdt','$gioitinh','$email')";
@@ -90,7 +90,8 @@
         $result2 = $link->query($sql1);
         $result = $link->query($sql);
          if( $result && $result2){
-            echo"Tạo tài khoản thành công";
+            echo'<script>alert("Thêm người dùng thành công.");
+            </script>';
     }
 }
     public function xoataikhoan($id,$quyen){
@@ -108,12 +109,12 @@
         }
     }
     public function suataikhoan($username,$password,$chucvu,$name,$sdt,$date,$gioitinh,$email){
-        $sql = "update taikhoan set  password = '$password',Loaiquyen = '$chucvu' where username = '$username'";
         $sql1 = "update khachhang set Hoten = '$name', Sodienthoai = '$sdt',Gioitinh = '$gioitinh', Ngaysinh = '$date',Email ='$email' where MaKH = '$username'";
+        $sql = "update taikhoan_khachhang set  Password = '$password',LoaiQuyen = '$chucvu' where username = '$username'";
         $link = $this->connect();
-        $result = $link->query($sql);
         $result = $link->query($sql1);
-
+        $result1 = $link->query($sql);
+        
 }
 public function changepass($id,$username,$password){
     $sql = "update taikhoan set  password = '$password' where username = '$id'";

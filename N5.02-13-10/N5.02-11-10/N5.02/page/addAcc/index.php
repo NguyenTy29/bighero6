@@ -159,11 +159,12 @@ if(isset($_REQUEST['btnAdd'])){
         }else{
             $sql1 = "select * from taikhoan_khachhang where UsernameKH = '$username' ";
         }
+        echo$date;
         $result = $obj->laydulieu($sql1);
         if($result){
             echo"Tên đăng nhập đã tồn tại.";
         }else{
-            $result = $obj->themtaikhoan($username,$password,$chucvu,$name,$gioitinh,$sodienthoai,$email);
+            $result = $obj->themtaikhoan($username,$password,$chucvu,$date,$name,$gioitinh,$sodienthoai,$email);
             // $sql2 = "insert into quantrivien_khachhang(MaQTV,MaKH,loaihoatdong) values('$maqtv','$username','Tạo tài khoản')";
             // $result1 = $obj->lichsuhoatdong($sql2);
         }
