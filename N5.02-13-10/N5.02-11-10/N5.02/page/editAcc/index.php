@@ -81,8 +81,10 @@
                     <?php
                      if(isset($_REQUEST['id'])){
                         $id = $_REQUEST['id'];
-                        $sql = "SELECT * FROM khachhang k inner join taikhoan t on k.MaKH = t.username where k.MaKH ='$id'";
+                        $sql = "SELECT * FROM khachhang  where MaKH ='$id'";
+                        $sql1 = "select * from taikhoan_khachhang where UsernameKH = '$id'";
                         $result = $obj->laydulieu($sql);
+                        $result1 = $obj->laydulieu($sql1);
                     echo'<th><input class="acc"  type="text" name="txtName" value="'.$result[0]['Hoten'].'" size="30" placeholder="Họ Tên" /></th>';
                      }
                     ?>
@@ -114,19 +116,19 @@
                     <th><label for="">Tên đăng nhập: </label></th>
                     <?php
               
-                        echo'<th><input class="acc" type="text" name="txtTenDN" size="30" value="'.$result[0]['username'].'" placeholder="username" /></th>';   
+                        echo'<th><input class="acc"  type="text" name="txtTenDN" size="30" value="'.$result1[0]['UsernameKH'].'" placeholder="username" /></th>';   
                     ?>
                 </tr>
                 <tr>
                     <th> <label for="">Mật khẩu:</label></th>
                     <?php
-                    echo'<th><input class="acc" type="text" name="txtPass" value="'.$result[0]['password'].'" size="30" placeholder="password" /></th>';
+                    echo'<th><input class="acc" type="text" name="txtPass" value="'.$result1[0]['Password'].'" size="30" placeholder="password" /></th>';
                     ?>
                 </tr>
                 <tr>
                     <th> <label for="">Nhập lại mật khẩu:</label></th>
                     <?php
-                    echo'<th><input class="acc" type="text" name="txtRePass" value="'.$result[0]['password'].'" size="30" placeholder="password" /></th>';
+                    echo'<th><input class="acc" type="text" name="txtRePass"  size="30" placeholder="password" /></th>';
                     ?>
                 </tr>
                 <tr>
@@ -174,10 +176,11 @@ if(isset($_REQUEST['btnEdit'])){
 //    if($name=""||$sdt==""|| $date=""||$password=""||$username=""||$Repass=""){
    if($password == $rePass){
        $result = $obj->suataikhoan($username,$password,$chucvu,$name,$sdt,$date,$gioitinh,$email);
-       $sql2 = "insert into quantrivien_khachhang(MaQTV,MaKH,loaihoatdong) values('$maqtv','$username','Sửa thông tin')";
-            $result1 = $obj->lichsuhoatdong($sql2);
-       echo'<script>alert("Sửa tài khoản thành công");
-            </script>';
+       
+    //    $sql2 = "insert into quantrivien_khachhang(MaQTV,MaKH,loaihoatdong) values('$maqtv','$username','Sửa thông tin')";
+    //         $result1 = $obj->lichsuhoatdong($sql2);
+    //    echo'<script>alert("Sửa tài khoản thành công");
+    //         </script>';
    
    }else{
     echo'<script>alert("Nhập lại mật khẩu không chính xác");

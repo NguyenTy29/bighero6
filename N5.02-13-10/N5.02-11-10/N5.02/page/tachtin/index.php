@@ -7,14 +7,12 @@
     <title>Tách dữ liệu</title>
 </head>
 <body>
-    
-</body>
-</html>
+
 <div id="main">
-    <h1>Tách Tin</h1>
+    <h1 style="margin-bottom:10px;">Tách Tin</h1>
     <div id="left">
-        <h2>Image:</h2>
-        <label style="width: 200px; border: 2px solid #ccc; height: 50px; background-color: violet; padding: 5px; border-radius: 10px; line-height: 50px;" for="file">Nhập ảnh</label>
+        <h2>Chọn ảnh cần tách:</h2>
+        <label style="width: 200px; border: 2px solid #ccc; height: 50px; background-color: violet; padding: 5px; border-radius: 10px; line-height: 50px;" for="file">Tải ảnh lên</label>
         <input hidden id="file" type="file"/><br/>
         <div class="btns">
             <span id="read" class="btn">Tách dữ liệu</span>
@@ -27,15 +25,15 @@
             <img width="300px" id="img" src=""/>
         </div>
         <div id="stego" class="half"></div>
-        <div id="messageArea" class="invisible">
+        <div id="messageArea" style="display: none;">
             <h2>Văn bản:</h2>
             <div id="message"></div>
         </div>
-        <div id="fileArea" class="invisible">
+        <div id="fileArea" style="display: none;">
             <h2>Tệp được nhúng:</h2>
-<a id="downloadFile" href="" download="extracted.txt" style="pointer-events: none; color: gray;">Tải Dữ Liệu Đã Nhúng</a>
+            <a id="downloadFile" href="" download="extracted.txt" style="pointer-events: none; color: gray;">Tải Dữ Liệu Đã Nhúng</a>
+        </div>
     </div>
-    <!-- <div class="clear"></div> -->
 </div>
 
 <script type="text/javascript" src="./build/steganography.js"></script>
@@ -65,7 +63,8 @@ function handleFileSelect(evt) {
                 img.src = e.target.result;
                 img.title = escape(theFile.name);
                 message.innerHTML = "";
-                message.parentNode.className = "invisible";
+                document.getElementById("messageArea").style.display = "none";
+                document.getElementById("fileArea").style.display = "none";
                 errorElement.innerHTML = ""; // Clear error message
             };
         })(f);
@@ -77,6 +76,7 @@ function handleFileSelect(evt) {
 function read() {
     var img = document.getElementById("img"),
         message = document.getElementById("message"),
+        messageArea = document.getElementById("messageArea"),
         fileArea = document.getElementById("fileArea"),
         downloadFile = document.getElementById("downloadFile"),
         errorElement = document.getElementById("error");
@@ -94,9 +94,6 @@ function read() {
 
     if (match && match[1]) {
         var fileInfo = JSON.parse(match[1]);
-        var fileContent = extractedText.replace(fileRegex, '').trim();  // Loại bỏ dòng chỉ tên file
-
-        // Chuyển đổi chuỗi base64 trở lại thành ArrayBuffer
         var byteCharacters = atob(fileInfo.content);
         var byteNumbers = new Array(byteCharacters.length);
         for (var i = 0; i < byteCharacters.length; i++) {
@@ -110,25 +107,30 @@ function read() {
         downloadFile.download = fileInfo.name;
         downloadFile.style.pointerEvents = "auto"; // Enable the link
         downloadFile.style.color = ""; // Reset color
-        fileArea.className = "";
+
+        fileArea.style.display = "block"; // Hiển thị phần Tệp được nhúng
+        messageArea.style.display = "none"; // Ẩn phần Văn bản
+
         <?php
             $iduser = $_SESSION['dangnhap'];
             $layuser = "select * from taikhoan where username = '$iduser'";
             $user = $obj->laydulieu($layuser);
-            $time = time();
             $sqlhd = "insert into lichsuhoatdong (loaihoatdong,username) values ('Người dùng \'".$user[0]['username']. "\' đã thực hiện tách tin ','$iduser')"; 
             $value = $obj->lichsuhoatdong($sqlhd);
-            ?>
+        ?>
     } else {
-        // Clear the download link if no valid file is found
         downloadFile.href = "";
         downloadFile.download = "";
         downloadFile.style.pointerEvents = "none"; // Disable the link
         downloadFile.style.color = "gray"; // Gray out the link
-        fileArea.className = "invisible";
+
+        fileArea.style.display = "none"; // Ẩn phần Tệp được nhúng
+
         message.innerHTML = extractedText;
         if (message.innerHTML !== "") {
-            message.parentNode.className = "";
+            messageArea.style.display = "block"; // Hiển thị phần Văn bản
+        } else {
+            messageArea.style.display = "none"; // Ẩn phần Văn bản nếu không có nội dung
         }
     }
 }
@@ -139,3 +141,5 @@ window.onload = function() {
 };
 </script>
 
+</body>
+</html>

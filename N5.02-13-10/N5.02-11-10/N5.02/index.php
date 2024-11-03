@@ -1,7 +1,7 @@
 <?php
 session_start();
 error_reporting(0);
-include('./class/class.php');
+include('./class/classTu.php');
 
 $obj = new databse();
 if(isset($_SESSION['dangnhap'])){
@@ -11,7 +11,7 @@ if(isset($_SESSION['dangnhap'])){
     // }else{
 
    
-    include('./layout/header.php');
+    include('./layout/headerTu.php');
     if(isset($_REQUEST['page'])){
         $page = $_REQUEST['page'];
     }else{

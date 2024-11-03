@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,25 +8,18 @@
 </head>
 <body>
 
-</body>
-</html>
 <div id="main">
 
-    <h1>Giấu Tin</h1>
+    <h1 style="margin-bottom:10px;">Giấu Tin Văn Bản</h1>
     <div id="left">
-        <!-- <form  action=""   method="post"> -->
-        <h2>Image:</h2>
-        <label style="width: 200px; border: 2px solid #ccc; height: 50px; background-color: violet; padding: 5px; border-radius: 10px; line-height: 50px;" for="file">Nhập ảnh</label>
+        <h2>Chọn ảnh để nhúng:</h2>
+        <label style="width: 200px; border: 2px solid #ccc; height: 50px; background-color: violet; padding: 5px; border-radius: 10px; line-height: 50px;" for="file">Tải ảnh lên</label>
         <input hidden id="file" type="file"/><br/>
-        <h2>Text:<span id="capacity"></span></h2>
-        <textarea id="text"></textarea>
+        <h2>Nhập văn bản/thông điệp:<span id="capacity"></span></h2>
+        <textarea id="text" rows="4" cols="50"></textarea>
         <div class="btns">
-            
-            <button id="hide" type="submit" value="Giấu tin" name="btnHide" class="btn">Giấu tin</button>
-            
-            <!-- <span id="read" class="btn">Read</span> -->
+            <button id="hide" type="button" class="btn">Giấu dữ liệu vào ảnh</button>
         </div>
-        <!-- <h2>Chọn tệp để nhúng (tùy chọn):</h2> -->
         <input style="visibility: hidden;" id="fileToEmbed" type="file"/>
         <div id="error" style="color: red;"></div>
     </div>
@@ -36,12 +28,11 @@
             <h2>Hình gốc:</h2>
             <img id="img" width="300px" src=""/>
         </div>
-        <div id="stego" class="half">
+        <div id="stego" class="half" style="display: none;">
             <h2>Hình đã được nhúng văn bản:</h2>
-            <img  width="300px"  id="cover" src=""/>
+            <img width="300px" id="cover" src=""/>
             <h1><div class="note" style="font-size: 15px;">Tải Ảnh Đã Nhúng Ở Đây</div></h1>
-            <a href="" id="download" type="submit"  class="btn small" download="cover.png"  rel="nofollow"><strong>Download</strong></a>
-            <!-- </form> -->
+            <a href="" id="download" class="btn small" download="cover.png" rel="nofollow"><strong>Download</strong></a>
         </div>
         <div id="messageArea" class="invisible">
             <h2 hidden>Message:</h2>
@@ -51,6 +42,7 @@
     
     <div class="clear"></div>
 </div>
+
 <?php
 if(isset($_REQUEST['btnHide'])){
     // $iduser = $_SESSION['dangnhap'];
@@ -61,23 +53,18 @@ if(isset($_REQUEST['btnHide'])){
 }
 ?>
 
-
-
-
 <script type="text/javascript" src="./build/steganography.js"></script>
 <script type="text/javascript">
 
 function handleFileSelect(evt) {
-    var original = document.getElementById("original"),
-        stego = document.getElementById("stego"),
-        img = document.getElementById("img"),
+    var img = document.getElementById("img"),
         cover = document.getElementById("cover"),
-        message = document.getElementById("message"),
+        stego = document.getElementById("stego"),
         errorElement = document.getElementById("error");
 
-    if (!original || !stego) return;
+    if (!img) return;
 
-    var files = evt.target.files; // FileList object
+    var files = evt.target.files; 
     var validImageTypes = ['image/png', 'image/jpeg', 'image/gif'];
 
     for (var i = 0, f; f = files[i]; i++) {
@@ -92,13 +79,10 @@ function handleFileSelect(evt) {
             return function(e) {
                 img.src = e.target.result;
                 img.title = escape(theFile.name);
-                stego.className = "half invisible";
+                stego.style.display = "none"; // Ẩn phần hình đã nhúng khi chọn ảnh mới
                 cover.src = "";
-                message.innerHTML = "";
-                message.parentNode.className = "invisible";
-                errorElement.innerHTML = ""; // Clear error message
+                errorElement.innerHTML = ""; // Xóa thông báo lỗi
                 updateCapacity();
-                
             };
         })(f);
 
@@ -107,10 +91,9 @@ function handleFileSelect(evt) {
 }
 
 function hide() {
-    var stego = document.getElementById("stego"),
-        img = document.getElementById("img"),
+    var img = document.getElementById("img"),
         cover = document.getElementById("cover"),
-        message = document.getElementById("message"),
+        stego = document.getElementById("stego"),
         textarea = document.getElementById("text"),
         download = document.getElementById("download"),
         fileInput = document.getElementById('fileToEmbed'),
@@ -124,14 +107,12 @@ function hide() {
     }
 
     if (!textarea.value && fileInput.files.length === 0) {
-        alert("Bạn chưa chọn file / nhập thông điệp.");
-        errorElement.innerHTML = "Bạn chưa chọn file / nhập thông điệp.";
+        errorElement.innerHTML = "Bạn chưa nhập thông điệp.";
         return;
     }
 
     var embeddedData = textarea.value;
 
-    // Nếu có tệp, thêm thông tin về tệp vào văn bản
     if (fileInput.files.length > 0) {
         var file = fileInput.files[0];
         var reader = new FileReader();
@@ -146,31 +127,16 @@ function hide() {
 
             if (img && textarea) {
                 cover.src = steg.encode(embeddedData, img);
-                stego.className = "half";
-                message.innerHTML = "";
-                message.parentNode.className = "invisible";
+                stego.style.display = "block"; // Hiển thị phần hình đã nhúng
                 download.href = cover.src.replace("image/png", "image/octet-stream");
-                
             }
         };
         reader.readAsBinaryString(file);
     } else {
         if (img && textarea) {
             cover.src = steg.encode(embeddedData, img);
-            stego.className = "half";
-            message.innerHTML = "";
-            message.parentNode.className = "invisible";
+            stego.style.display = "block"; // Hiển thị phần hình đã nhúng
             download.href = cover.src.replace("image/png", "image/octet-stream");
-
-            <?php
-            $iduser = $_SESSION['dangnhap'];
-            $layuser = "select * from taikhoan where username = '$iduser'";
-            $user = $obj->laydulieu($layuser);
-            $time = time();
-            $sqlhd = "insert into lichsuhoatdong (loaihoatdong,username) values ('Người dùng \'".$user[0]['username']. "\' đã thực hiện giấu tin ','$iduser')"; 
-            $value = $obj->lichsuhoatdong($sqlhd);
-            ?>
-            
         }
     }
 }
@@ -180,9 +146,7 @@ function updateCapacity() {
         textarea = document.getElementById('text');
     if (img && textarea) {
         document.getElementById('capacity').innerHTML = '(' + textarea.value.length + '/' + steg.getHidingCapacity(img) + ' chars)';
-        
     }
-    
 }
 
 window.onload = function() {
@@ -190,6 +154,8 @@ window.onload = function() {
     document.getElementById('hide').addEventListener('click', hide, false);
     document.getElementById('text').addEventListener('keyup', updateCapacity, false);
     updateCapacity();
-    
 };
 </script>
+
+</body>
+</html>

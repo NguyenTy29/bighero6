@@ -12,6 +12,7 @@
     </div>
     <table id="userTable">
         <tr>
+            <th>Mã khách hàng</th>
             <th>Tên đăng nhập</th>
             <th>Mật khẩu</th>
             <th>Chức vụ</th>
@@ -27,23 +28,27 @@
         if(isset($_REQUEST['btnSearch'])){
             $txtsearch = $_REQUEST['txtSearch'];
       
-            $sql = "select * from taikhoan t inner join khachhang k on t.username = k.MaKH where t.username like '%$txtsearch%'";
+            $sql = "select * from khachhang where MaKH like '%$txtsearch%'";
+            $sql1 = "select * from taikhoan_khachhang  where UsernameKH like '%$txtsearch%'";
         }else{
-            $sql = "select * from taikhoan t inner join khachhang k on t.username = k.MaKH" ;
+            $sql="select * from khachhang";
+            $sql1 = "select * from taikhoan_khachhang " ;
         }
             $result = $obj->laydulieu($sql);
+            $result1 = $obj->laydulieu($sql1);
             for($i=0;$i<count($result);$i++){
                 echo"<tr>";
-                echo"<td>".$result[$i]['username']."</td>
-                <td>".$result[$i]['password']."</td>
-                <td>".$result[$i]['Loaiquyen']."</td>
+                echo"<td>".$result[$i]['MaKH']."</td>
+                <td>".$result1[$i]['UsernameKH']."</td>
+                <td>".$result1[$i]['Password']."</td>
+                <td>KhachHang</td>
                 <td>".$result[$i]['Hoten']."</td>
                 <td>".$result[$i]['Sodienthoai']."</td>
                 <td>".$result[$i]['Gioitinh']."</td>
                 <td>".$result[$i]['Ngaysinh']."</td>
                 <td>".$result[$i]['Email']."</td>
                 <td></td>
-                <td> <a class='action' href='index.php?page=editAcc&id=".$result[$i]['username']."'>Sửa</a>|<a class='action' href='index.php?page=admin&id=".$result[$i]['username']."&quyen=".$result[$i]['Loaiquyen']."&'>Xóa</a></td>";
+                <td> <a class='action' href='index.php?page=editAcc&id=".$result[$i]['MaKH']."'>Sửa</a>|<a class='action' href='index.php?page=admin&id=".$result[$i]['MaKH']."&quyen=".$result1[$i]['LoaiQuyen']."&'>Xóa</a></td>";
                 echo"</tr>";
             }
             if(isset($_REQUEST['id'])){

@@ -23,7 +23,8 @@
     }
     .login {
         /* position: absolute; */
-        height:380px; width:700px;
+        /* height:380px; */
+        width:700px;
         margin:0;
         padding:10px;
         border:5px #CCC solid;
@@ -75,47 +76,54 @@
         <div class="log">
         <form method="post">
           <div class="login">
-             <h2>Tạo tài khoản</h2>
+             <h2>Thêm người dùng</h2>
              <table>
-             <!-- <tr>
+             <tr>
                     <th> <label for="">Họ tên:</label></th>
-                    <th><input class="acc" type="text" name="txtName" size="30" placeholder="Họ Tên" /></th>
+                    <th><input class="acc" type="text" name="txtName" size="30" required placeholder="Họ Tên" /></th>
                 </tr>
-                <tr>
-                    <th> <label for="">Số điện thoại:</label></th>
-                    <th><input class="acc" type="text" name="txtSDT" size="30" placeholder="Số điện thoại" /></th>
-                </tr> -->
                 <!-- <tr>
+                    <th> <label for="">Số điện thoại:</label></th>
+                    <th><input class="acc" type="text" name="txtSDT" required size="30" placeholder="Số điện thoại" /></th>
+                </tr>  -->
+                <tr>
                     <th> <label for="">Giới tính:</label>
                     <th>
                     <select name="gioitinh" id="">
-                    
+                        <option value="Nam">Nam</option>
+                        <option value="Nữ">Nữ</option>
                 </select>
                     </th>
-                </tr> -->
+                </tr> 
                 <tr>
-                <!-- <th> <label for="">Số điện thoại:</label></th>
-                    <th><input type="date"></th>
-                </tr> -->
+                <th> <label for="">Số điện thoại:</label></th>
+                    <th><input required name="txtSDT" class="acc" type="text"></th>
+                </tr>
+                <th> <label for="">Email:</label></th>
+                    <th><input required name="txtEmail" class="acc" type="text"></th>
+                </tr>
+                <th> <label for="">Ngày sinh:</label></th>
+                    <th><input required class="acc" name="txtDate" type="date"></th>
+                </tr>
                 <tr>
                     <th><label for="">Tên đăng nhập: </label></th>
-                    <th><input class="acc" type="text" name="txtTenDN" size="30"  placeholder="username" /></th>
+                    <th><input class="acc" type="text" name="txtTenDN" size="30"  placeholder="username" required /></th>
                 </tr>
                 <tr>
                     <th> <label for="">Mật khẩu:</label></th>
-                    <th><input class="acc" type="password" name="txtPass" size="30" placeholder="password" /></th>
+                    <th><input class="acc" type="password" name="txtPass" size="30" placeholder="password" required /></th>
                 </tr>
                 <tr>
                     <th> <label for="">Nhập lại mật khẩu:</label></th>
-                    <th><input class="acc" type="password" name="txtRePass" size="30" placeholder="password" /></th>
+                    <th><input class="acc" type="password" name="txtRePass" size="30" placeholder="password" required /></th>
                 </tr>
                 <tr>
                     <th> <label for="">Chức vụ:</label>
                     <th>
                     <select name="chucvu" id="">
                     
-                     <option value="admin">Admin</option>
-                     <option value="khách hàng">Khách hàng</option>
+                     <option value="QuanTriVien">Admin</option>
+                     <option value="KhachHang">Khách hàng</option>
                 
                 </select>
                     </th>
@@ -135,20 +143,29 @@
 </html>
 <?php
 if(isset($_REQUEST['btnAdd'])){
+    $name = $_REQUEST['txtName'];
+    $gioitinh = $_REQUEST['gioitinh'];
+    $sodienthoai = $_REQUEST['txtSDT'];
+    $date = $_REQUEST['txtDate'];
+    $email = $_REQUEST['txtEmail'];
    $username = $_REQUEST['txtTenDN'];
    $password = $_REQUEST['txtPass'];
    $rePass = $_REQUEST['txtRePass'];
    $chucvu = $_REQUEST['chucvu'];
    $maqtv = $_SESSION['dangnhap'];
    if($password == $rePass){
-        $sql1 = "select * from taikhoan where username = '$username' ";
+        if($chucvu =='QuanTriVien'){
+            $sql1 = "select * from taikhoan_quantrivien where UsernameQTV = '$username' ";
+        }else{
+            $sql1 = "select * from taikhoan_khachhang where UsernameKH = '$username' ";
+        }
         $result = $obj->laydulieu($sql1);
         if($result){
             echo"Tên đăng nhập đã tồn tại.";
         }else{
-            $result = $obj->themtaikhoan($username,$password,$chucvu);
-            $sql2 = "insert into quantrivien_khachhang(MaQTV,MaKH,loaihoatdong) values('$maqtv','$username','Tạo tài khoản')";
-            $result1 = $obj->lichsuhoatdong($sql2);
+            $result = $obj->themtaikhoan($username,$password,$chucvu,$name,$gioitinh,$sodienthoai,$email);
+            // $sql2 = "insert into quantrivien_khachhang(MaQTV,MaKH,loaihoatdong) values('$maqtv','$username','Tạo tài khoản')";
+            // $result1 = $obj->lichsuhoatdong($sql2);
         }
    }else{
     echo'Nhập lại mật khẩu không chính xác';

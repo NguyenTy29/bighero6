@@ -11,20 +11,20 @@
 </body>
 </html>
 <div id="main">
-    <h1 style="margin-bottom:10px;">Giấu Tin File</h1>
+    <h1>Giấu Tin</h1>
     <div id="left">
-        <h2>Chọn ảnh để nhúng:</h2>
-        <label style="width: 200px; border: 2px solid #ccc; height: 50px; background-color: violet; padding: 5px; border-radius: 10px; line-height: 50px;" for="file">Tải ảnh lên</label>
+        <h2>Image:</h2>
+        <label style="width: 200px; border: 2px solid #ccc; height: 50px; background-color: violet; padding: 5px; border-radius: 10px; line-height: 50px;" for="file">Nhập ảnh</label>
         <input hidden id="file"  type="file"/><br/>
         <!-- <h2  type="visibility: hidden">Text:<span id="capacity"></span></h2> -->
         <textarea  style="visibility: hidden ; position:absolute"  id="text"></textarea>    
        
-        <h2>Chọn tệp để nhúng:</h2>
-        <label style="width: 200px; border: 2px solid #ccc; height: 50px; background-color: violet; padding: 5px; border-radius: 10px; line-height: 50px;" for="fileToEmbed">Tải tệp lên</label>
+        <h2>Chọn tệp để nhúng (tùy chọn):</h2>
+        <label style="width: 200px; border: 2px solid #ccc; height: 50px; background-color: violet; padding: 5px; border-radius: 10px; line-height: 50px;" for="fileToEmbed">Chọn file nhúng</label>
         <input hidden id="fileToEmbed" type="file"/>
         <div id="error" style="color: red;"></div>
         <div class="btns">
-                <span id="hide" class="btn">Giấu dữ liệu vào ảnh</span>
+                <span id="hide" class="btn">Giấu tin</span>
                 <!-- <span id="read" class="btn">Read</span> -->
             </div>
     </div>
@@ -33,8 +33,8 @@
             <h2>Hình gốc:</h2>
             <img width="300px" id="img" src=""/>
         </div>
-        <div id="stego" class="half" style="display: none;">
-            <h2>Hình đã được nhúng file:</h2>
+        <div id="stego" class="half">
+            <h2>Hình đã được nhúng văn bản:</h2>
             <img width="300px" id="cover" src=""/>
             <h1><div class="note" style="font-size: 15px;">Tải Ảnh Đã Nhúng Ở Đây</div></h1>
             <a id="download" class="btn small" download="cover.png" rel="nofollow"><strong>Download</strong></a>
@@ -75,8 +75,10 @@ function handleFileSelect(evt) {
             return function(e) {
                 img.src = e.target.result;
                 img.title = escape(theFile.name);
-                stego.style.display = "none"; // Ẩn phần hình đã nhúng khi chọn ảnh mới
+                stego.className = "half invisible";
                 cover.src = "";
+                message.innerHTML = "";
+                message.parentNode.className = "invisible";
                 errorElement.innerHTML = ""; // Clear error message
                 updateCapacity();
             };
@@ -90,7 +92,7 @@ function hide() {
     var stego = document.getElementById("stego"),
         img = document.getElementById("img"),
         cover = document.getElementById("cover"),
-        stego = document.getElementById("stego"),
+        message = document.getElementById("message"),
         textarea = document.getElementById("text"),
         download = document.getElementById("download"),
         fileInput = document.getElementById('fileToEmbed'),
@@ -106,8 +108,8 @@ function hide() {
 
     // Check if either the textarea contains a message or a file is selected
     if (!textarea.value && fileInput.files.length === 0) {
-        alert("Xin vui lòng chọn một tệp để nhúng.");
-        errorElement.innerHTML = "Xin vui lòng chọn một tệp để nhúng.";
+        alert("Xin vui lòng nhập văn bản hoặc chọn một tệp để nhúng.");
+        errorElement.innerHTML = "Xin vui lòng nhập văn bản hoặc chọn một tệp để nhúng.";
         return;
     }
 
@@ -128,7 +130,9 @@ function hide() {
 
             if (img && textarea) {
                 cover.src = steg.encode(embeddedData, img);
-                stego.style.display = "block"; // Hiển thị phần hình đã nhúng
+                stego.className = "half";
+                message.innerHTML = "";
+                message.parentNode.className = "invisible";
                 download.href = cover.src.replace("image/png", "image/octet-stream");
             }
         };
