@@ -108,6 +108,16 @@
             </script>';
         }
     }
+    public function xoanguoidung($id){
+        $link = $this->connect();
+        $sql = "delete from taikhoan_khachhang where UsernameKH = '$id'";
+        $sql1 = "delete from khachhang where MaKH = '$id'";
+        $result = $link->query($sql);
+        $result1 = $link->query($sql1);
+            echo'<script>alert("Xóa người dùng thành công.");
+            </script>';
+        
+    }
     public function suataikhoan($username,$password,$chucvu,$name,$sdt,$date,$gioitinh,$email){
         $sql1 = "update khachhang set Hoten = '$name', Sodienthoai = '$sdt',Gioitinh = '$gioitinh', Ngaysinh = '$date',Email ='$email' where MaKH = '$username'";
         $sql = "update taikhoan_khachhang set  Password = '$password',LoaiQuyen = '$chucvu' where username = '$username'";

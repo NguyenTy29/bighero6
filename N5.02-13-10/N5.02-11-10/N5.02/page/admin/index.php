@@ -23,6 +23,7 @@
             <th>Email</th>
             <th>Mô tả</th>
             <th>Action</th>
+            
         </tr>
         <?php
         if(isset($_REQUEST['btnSearch'])){
@@ -48,7 +49,7 @@
                 <td>".$result[$i]['Ngaysinh']."</td>
                 <td>".$result[$i]['Email']."</td>
                 <td></td>
-                <td> <a class='action' href='index.php?page=editAcc&id=".$result[$i]['MaKH']."'>Sửa</a>|<a class='action' href='index.php?page=admin&id=".$result[$i]['MaKH']."&quyen=".$result1[$i]['LoaiQuyen']."&'>Xóa</a></td>";
+                <td> |<a class='action' href='index.php?page=editAcc&id=".$result[$i]['MaKH']."'>Sửa</a>|<br>|<a class='action' href='index.php?page=admin&id=".$result[$i]['MaKH']."&quyen=".$result1[$i]['LoaiQuyen']."&'>Xóa tài khoản</a>|<br>|<a class='action' href='index.php?page=admin&idDeleteUser=".$result[$i]['MaKH']."'>Xóa người dùng</a>|</td>";
                 echo"</tr>";
             }
             if(isset($_REQUEST['id'])){
@@ -58,6 +59,10 @@
                 // if($result){
                 //     echo'<script>window.location.reload();</script>';
                 // }
+            }
+            if(isset($_REQUEST['idDeleteUser'])){
+                 $idDeleteUser = $_REQUEST['idDeleteUser'];
+                 $result = $obj->xoanguoidung($idDeleteUser);
             }
         ?>
     </table>
